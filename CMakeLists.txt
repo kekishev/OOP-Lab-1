@@ -5,7 +5,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(OOP_Lab_1 LANGUAGES CXX)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # For VS Code error highlighting
-
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -13,7 +12,7 @@ set(CMAKE_BUILD_TYPE Debug)
 
 function(flags target)
     if(MSVC) # MSVC - Microsoft compiler
-        target_compile_options(${target} PRIVATE /Wall /Zi)
+        target_compile_options(${target} PRIVATE /Wall /Zi) #Zi - Debug info
         target_link_options(${target} PRIVATE /DEBUG)
     endif()
 endfunction()

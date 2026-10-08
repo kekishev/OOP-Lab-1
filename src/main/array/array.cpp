@@ -7,9 +7,9 @@
 #include <stdexcept>
 
 namespace array {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 100);
+    static std::random_device seed; // Reads entropy from hardware
+    static std::mt19937 gen(seed()); // Pseudo-random generator based on seed
+    static std::uniform_int_distribution<int> dist(1, 100);
 
     int* array_create(std::size_t size) {
         int* arr_created = new int[size]{};
@@ -45,13 +45,15 @@ namespace array {
     }
 
     int* array_insert(int* arr, std::size_t& size, std::size_t pos, int value) {
-        if (arr == nullptr) {
+        if (arr == nullptr || pos >= size || pos < 0) {
             return arr;
         }
 
-        if (pos >= size) {
-            throw std::out_of_range("position is out of range");
-        }
+        /**
+         * if (pos >= size) {
+         *  throw std::out_of_range("position is out of range");
+         * }   
+         */
 
         arr = array_resize(arr, size, size + 1);
 
@@ -69,13 +71,15 @@ namespace array {
     }
 
     int* array_remove(int* arr, std::size_t& size, std::size_t pos) {
-        if (arr == nullptr) {
+        if (arr == nullptr || pos >= size || pos < 0) {
             return arr;
         }
 
-        if (pos >= size) {
-            throw std::out_of_range("position is out of range");
-        }
+        /**
+         * if (pos >= size) {
+         *  throw std::out_of_range("position is out of range");
+         * }   
+         */
 
         for (std::size_t i = pos; i <= size - 1; i++) {
             arr[i] = arr[i + 1];
@@ -177,7 +181,7 @@ namespace array {
     }
 
     void array_set_value(int* arr, std::size_t size, std::size_t pos, int new_value) {
-        if (arr == nullptr || pos >= size) {
+        if (arr == nullptr || pos >= size || pos < 0) {
             return;
         }
 
